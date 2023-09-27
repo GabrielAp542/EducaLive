@@ -1,5 +1,6 @@
 const users = require('../db/models/users')
 const passwordValidation = require('../helpers/validations/password')
+const userValidation = require('../helpers/validations/users')
 const bcrypt = require('bcrypt')
 
 exports.createUser = async (req, res) => {
@@ -21,6 +22,12 @@ exports.createUser = async (req, res) => {
 
     if (password.trim() != confirmation.trim()) {
         return res.send('coincidencia')
+    }
+
+    const repeat = await userValidation.repeatData(username, email)
+
+    if (repeat == false) {
+        return res.send('repeat')
     }
 
     const usuario = await passwordValidation.passwordValidation(password, username, email)
