@@ -23,6 +23,11 @@ const usersSchema = new mongoose.Schema(
         password: {
             type: String,
             require: true
+        },
+        rol: {
+            type: ["admin", "profesor", "psicologo", "estudiante", "coordinador"],
+            require: true,
+            default: "estudiante"
         }
     },
     {
