@@ -25,9 +25,19 @@ const usersSchema = new mongoose.Schema(
             require: true
         },
         rol: {
-            type: ["admin", "profesor", "psicologo", "estudiante", "coordinador"],
+            type: ["admin", "profesor", "psicologo", "estudiante"],
             require: true,
             default: "estudiante"
+        },
+        status: {
+            type: ["activo", "inactivo", "baneado"],
+            require: true,
+            default: "activado"
+        },
+        authentication: {
+            type: ["activo", "inactivo"],
+            require: true,
+            default: "inactivo"
         }
     },
     {
@@ -35,3 +45,7 @@ const usersSchema = new mongoose.Schema(
         versionKey: false
     }
 )
+
+const users = new mongoose.model('users', usersSchema)
+
+module.exports = users
